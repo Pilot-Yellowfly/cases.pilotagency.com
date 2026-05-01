@@ -28,6 +28,60 @@
       background: #000;
     }
 
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      z-index: 10;
+      transition: opacity 0.6s ease;
+    }
+
+    #loader.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #loader svg {
+      width: 260px;
+      height: auto;
+    }
+
+    #loader-bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 260px;
+    }
+
+    #progress-bar-track {
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #ffc20e;
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    #progress-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.4);
+    }
+
     iframe {
       position: fixed;
       top: 0;
@@ -39,11 +93,84 @@
   </style>
 </head>
 <body>
+
+  <div id="loader">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="549.501" height="111.834" viewBox="0 0 549.501 111.834">
+      <defs>
+        <clipPath id="clip_1">
+          <path transform="matrix(1,0,0,-1,0,111.834)" d="M0 111.834H549.501V0H0Z"/>
+        </clipPath>
+      </defs>
+      <g>
+        <g clip-path="url(#clip_1)">
+          <path transform="matrix(1,0,0,-1,21.787,58.1651)" d="M0 0H-14.278V26.28H-.006C7.239 26.28 13.133 20.385 13.133 13.14 13.133 5.897 7.243 .003 0 0M.369 33.413H-21.787V-28.908H-14.278V-7.133H.369C11.566-7.133 20.642 1.943 20.642 13.14 20.642 24.336 11.566 33.413 .369 33.413M115.117 34.915H107.608V-28.908H115.117V6.758H128.094V13.891H115.117ZM42.896-28.908H50.405V34.913999H42.896ZM27.045-28.908H34.554V13.890999H27.045ZM30.827 32.307C28.055 32.307 25.809 30.06 25.809 27.288 25.809 24.516 28.055 22.269 30.827 22.269 33.599 22.269 35.846 24.516 35.846 27.288 35.846 30.06 33.599 32.307 30.827 32.307M79.006-23.118C70.612-23.118 63.783-16.12 63.783-7.52 63.783 1.081 70.612 8.078 79.006 8.078 87.4 8.078 94.229 1.081 94.229-7.52 94.229-16.12 87.4-23.118 79.006-23.118M79.006 15.212C66.472 15.212 56.275 5.014 56.275-7.52 56.275-20.054 66.472-30.251 79.006-30.251 91.54-30.251 101.738-20.054 101.738-7.52 101.738 5.014 91.54 15.212 79.006 15.212" fill="#ffffff"/>
+          <path transform="matrix(1,0,0,-1,541.2272,44.2744)" d="M0 0-15.054-32.284-30.101 0H-38.396L-19.198-41.17-30.461-65.324H-22.177L8.274 0ZM-104.219-32.545-112.939 0H-121.215L-129.936-32.546-138.656 0H-146.43L-134.963-42.799H-126.076L-117.077-9.215-108.079-42.799H-99.192L-87.724 0H-95.498ZM-269.813-16.996C-267.949-10.54-262.118-5.812-255.221-5.812-248.324-5.812-242.493-10.54-240.629-16.996ZM-255.221 1.321C-267.755 1.321-277.952-8.876-277.952-21.411-277.952-33.945-267.755-44.142-255.221-44.142-245.26-44.142-236.729-37.926-233.286-29.173H-241.543C-244.372-33.87-249.444-37.009-255.221-37.009-262.963-37.009-269.36-31.051-270.309-23.378H-232.58C-232.524-22.729-232.489-22.074-232.489-21.411-232.489-8.876-242.687 1.321-255.221 1.321M-81.005 4.71V-42.799H-73.497V-7.133H-60.52V0H-73.497V4.705C-73.497 4.706-73.497 4.708-73.497 4.71-73.497 9.772-69.378 13.891-64.315 13.891H-59.42V21.024H-64.691C-73.701 21.024-81.005 13.72-81.005 4.71M-276.232 19.522-293.577-10.537-310.942 19.522H-319.612L-297.332-19.052V-42.799H-289.823V-19.051L-267.562 19.522ZM-171.465-37.009C-179.859-37.009-186.687-30.011-186.687-21.411-186.687-12.81-179.859-5.812-171.465-5.812-163.071-5.812-156.242-12.81-156.242-21.411-156.242-30.011-163.071-37.009-171.465-37.009M-171.465 1.321C-183.999 1.321-194.196-8.876-194.196-21.411-194.196-33.945-183.999-44.142-171.465-44.142-158.931-44.142-148.733-33.945-148.733-21.411-148.733-8.876-158.931 1.321-171.465 1.321M-52.662-42.799H-45.153V21.022999H-52.662ZM-208.462-42.799H-200.953V21.022999H-208.462ZM-225.732-42.799H-218.22299V21.022999H-225.732Z" fill="#ffffff"/>
+          <path transform="matrix(1,0,0,-1,212.7213,0)" d="M0 0-52.151-111.834H-55.107L-55.125-111.825-2.979 0Z" fill="#ffc20e"/>
+        </g>
+      </g>
+    </svg>
+
+    <div id="loader-bottom">
+      <div id="progress-bar-track">
+        <div id="progress-bar"></div>
+      </div>
+      <span id="progress-label">0%</span>
+    </div>
+  </div>
+
   <iframe
-    src="https://docs.google.com/presentation/d/e/2PACX-1vQcqALwMYB7k9gmHFmOjtKF-udrf1lexICA25n5vEIyQOTwqGP7jV20lukfjaJOE6NYA_ROA605e8oV/pubembed?start=true&loop=false&delayms=5000"
-    allowfullscreen="true"
-    mozallowfullscreen="true"
-    webkitallowfullscreen="true">
+    id="figma"
+    src="https://embed.figma.com/proto/iDDvSFDdlAi85NNIO6NPee/ABA_Evolution_Case_PILOT?node-id=1-2197&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&embed-host=share"
+    allowfullscreen>
   </iframe>
+
+  <script>
+    const loader = document.getElementById('loader');
+    const bar = document.getElementById('progress-bar');
+    const label = document.getElementById('progress-label');
+    let currentPct = 0;
+    let done = false;
+
+    function setProgress(pct) {
+      currentPct = pct;
+      bar.style.width = pct + '%';
+      label.textContent = pct + '%';
+    }
+
+    const steps = [
+      { pct: 15, delay: 300 },
+      { pct: 35, delay: 1000 },
+      { pct: 55, delay: 2200 },
+      { pct: 70, delay: 3500 },
+      { pct: 82, delay: 5000 },
+    ];
+
+    steps.forEach(function(s) {
+      setTimeout(function() {
+        if (!done) setProgress(s.pct);
+      }, s.delay);
+    });
+
+    function finish() {
+      if (done) return;
+      done = true;
+      setProgress(100);
+      setTimeout(function() {
+        loader.classList.add('fade-out');
+        setTimeout(function() {
+          loader.style.display = 'none';
+        }, 700);
+      }, 400);
+    }
+
+    window.addEventListener('message', function(e) {
+      if (e.origin.includes('figma.com')) {
+        setTimeout(finish, 500);
+      }
+    });
+
+    setTimeout(finish, 8000);
+  </script>
+
 </body>
 </html>
